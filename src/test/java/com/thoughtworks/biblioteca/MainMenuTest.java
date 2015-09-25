@@ -30,6 +30,7 @@ public class MainMenuTest {
         returnBookCommand = mock(ReturnBookCommand.class);
         commandMap.put("1", listBookCommand);
         commandMap.put("2", checkOutCommand);
+        commandMap.put("3", returnBookCommand);
         menu = new MainMenu(printStream, commandMap);
 
     }
@@ -39,6 +40,7 @@ public class MainMenuTest {
         verify(printStream).println("Menu:\n" +
                 "1 - List Books\n" +
                 "2 - Check Out Book\n" +
+                "3 - Return Book\n" +
                 "Q - Quit");
     }
 

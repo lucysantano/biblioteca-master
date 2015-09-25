@@ -62,7 +62,7 @@ public class LibraryTest {
 
         library.checkOut("Book1");
 
-        verify(printStream).println("Thank you! Enjoy the book");
+        verify(printStream).println("Thank you! Enjoy the book.");
     }
 
     @Test
@@ -104,4 +104,32 @@ public class LibraryTest {
 
         verify(book).printDetails();
     }
+
+    @Test
+    public void shouldSeeSuccessMessageWhenUserReturnsABook() {
+        when(book.hasTitle("Book1")).thenReturn(true);
+
+        library.returnBook("Book1");
+
+        verify(printStream).println("Thank you for returning the book.");
+    }
+
+    @Test
+    public void shouldNotSeeFailureMessageWhenUserReturnsABook() {
+        when(book.hasTitle("Book1")).thenReturn(true);
+
+        library.returnBook("Book1");
+
+        verify(printStream, never()).println("That is not a valid book to return.");
+    }
+
+    @Test
+    public void shouldSeeErrorMessageWhenUserTriesToReturnABookThatIsNotAvailable() {
+        when(book.hasTitle("Book1")).thenReturn(false);
+
+        library.returnBook("Book1");
+
+        verify(printStream).println("That is not a valid book to return.");
+    }
+
 }

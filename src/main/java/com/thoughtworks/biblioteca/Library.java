@@ -27,7 +27,7 @@ public class Library {
         Book foundBook = findBookBy(bookTitle);
         if (foundBook != null){
             foundBook.changeCheckOutStatus();
-            printStream.println("Thank you! Enjoy the book");
+            printStream.println("Thank you! Enjoy the book.");
         } else {
             printStream.println("Book is not available.");
         }
@@ -49,6 +49,10 @@ public class Library {
 
         if (foundBook != null){
             foundBook.changeCheckOutStatus();
+            printStream.println("Thank you for returning the book.");
+        }
+        else{
+            printStream.println("That is not a valid book to return.");
         }
     }
 }
