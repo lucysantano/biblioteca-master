@@ -22,4 +22,12 @@ public class Book {
         String bookDetails = String.format("%-30s| %-30s| %s", title, author, year);
         printStream.println(bookDetails);
     }
+
+    public void changeCheckOutStatus() {
+
+    }
+
+    public boolean hasTitle(String bookTitle) {
+        return bookTitle.equals(title);
+    }
 }

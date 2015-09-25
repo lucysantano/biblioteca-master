@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 /**
@@ -34,30 +32,42 @@ public class ApplicationTest {
 
     @Test
     public void shouldPrintWelcomeWhenStarting() throws IOException {
+        when(reader.readLine()).thenReturn("Q");
         application.start();
         verify(printStream).println(contains("Welcome"));
     }
 
     @Test
     public void shouldCallListBooksWhenStarting() throws IOException {
+        when(reader.readLine()).thenReturn("Q");
         application.start();
         verify(mainMenu).displayOptions();
     }
 
     @Test
     public void shouldReadInputWhenStarting() throws IOException {
+        when(reader.readLine()).thenReturn("Q");
         application.start();
         verify(reader).readLine();
     }
 
     @Test
     public void shouldRunCommandWhenUserInputsACommand() throws IOException {
-        when(reader.readLine()).thenReturn("1");
+        when(reader.readLine()).thenReturn("1","Q");
 
         application.start();
 
         verify(mainMenu).runCommand("1");
 
+    }
+
+    @Test
+    public void shouldContinueToAcceptCommandsUntilQuitting() throws IOException {
+        when(reader.readLine()).thenReturn("1","1","Q");
+
+        application.start();
+
+        verify(mainMenu, times(2)).runCommand("1");
     }
 
 

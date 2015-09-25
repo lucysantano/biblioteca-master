@@ -19,9 +19,9 @@ public class Main {
         bookList.add(GoodnightMoon);
 
         Library library = new Library(bookList, System.out);
-        Options options = new Options(library, System.out);
         HashMap<String, Command> commandMap = new HashMap<>();
-        MainMenu mainMenu = new MainMenu(System.out, new BufferedReader(new InputStreamReader(System.in)), options, commandMap);
+        commandMap.put("1", new ListBookCommand(library));
+        MainMenu mainMenu = new MainMenu(System.out, commandMap);
         Application application = new Application(System.out, mainMenu, new BufferedReader(new InputStreamReader(System.in)));
         application.start();
     }

@@ -21,9 +21,12 @@ public class Library {
         }
     }
 
-//    public void addBook(String title, String author, int year) {
-//        Book book = new Book(title, author, year);
-//        books.add(book);
-//
-//    }
+    public void checkOut(String bookTitle) {
+        for (Book book : books) {
+            if (book.hasTitle(bookTitle)) {
+                book.changeCheckOutStatus();
+                break;
+            }
+        }
+    }
 }

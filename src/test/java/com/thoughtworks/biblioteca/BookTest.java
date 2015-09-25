@@ -1,9 +1,12 @@
 package com.thoughtworks.biblioteca;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -12,13 +15,31 @@ import static org.mockito.Mockito.verify;
  */
 public class BookTest {
 
+    private Book book;
+    private PrintStream printStream;
+
+    @Before
+    public void setup() {
+        printStream = mock(PrintStream.class);
+        book = new Book("The Hungry Caterpillar", "Eric Carle", "1969", printStream);
+    }
+
     @Test
     public void shouldFormatDetailsIntoColumnsWhenPrintingDetails() {
-        PrintStream printStream = mock(PrintStream.class);
-        Book book = new Book("The Hungry Caterpillar", "Eric Carle", "1969", printStream);
-
         book.printDetails();
 
         verify(printStream).println("The Hungry Caterpillar        | Eric Carle                    | 1969");
     }
+
+    @Test
+    public void shouldReturnTrueIfBookHasTitle() {
+        assertTrue(book.hasTitle("The Hungry Caterpillar"));
+    }
+
+    @Test
+    public void shouldReturnFalseIfBookDoesNotHaveTitle() {
+        assertFalse(book.hasTitle("The Hungry"));
+    }
+
+
 }

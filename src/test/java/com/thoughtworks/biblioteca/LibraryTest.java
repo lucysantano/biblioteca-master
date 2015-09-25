@@ -11,6 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 /**
@@ -30,9 +31,6 @@ public class LibraryTest {
         book = mock(Book.class);
         bookList.add(book);
         library = new Library(bookList, printStream);
-
-//        book1 = new Book("The Hungry Caterpillar", "Eric Carle", "1969", printStream);
-//        book2 = new Book("Goodnight, Moon", "Margaret Wise Brown", "1947", printStream);
     }
 
 
@@ -40,6 +38,15 @@ public class LibraryTest {
     public void shouldPrintBookDetailsWhenListingBooks() {
         library.listBooks();
         verify(book).printDetails();
+    }
+
+    @Test
+    public void shouldTrueWhenCheckedOut(){
+        when(book.hasTitle("Book1")).thenReturn(true);
+
+        library.checkOut("Book1");
+
+        verify(book).changeCheckOutStatus();
     }
 
 

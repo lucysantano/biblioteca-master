@@ -10,34 +10,23 @@ import java.util.HashMap;
  */
 public class MainMenu {
     private PrintStream printStream;
-    private BufferedReader reader;
-    private Options options;
+    private HashMap<String, Command> commandMap;
 
-    MainMenu(PrintStream printStream, BufferedReader bufferedReader, Options options, HashMap<String, Command> commandMap){
+    MainMenu(PrintStream printStream, HashMap<String, Command> commandMap){
         this.printStream = printStream;
-        this.reader = bufferedReader;
-        this.options = options;
+        this.commandMap = commandMap;
     }
 
-    public void displayOptions() throws IOException {
+    public void displayOptions(){
         printStream.println("Menu:\n1 - List Books\nQ - Quit");
-//        String option = reader.readLine();
-//        readAndRunInput(option);
-    }
-
-    private void readAndRunInput(String option) throws IOException {
-
-//        while(!options.notQuitting(option)){
-//            options.runSelection(option);
-//            option = reader.readLine();
-//        }
-    }
-
-    private boolean notQuitting(String choice) {
-        return !choice.toUpperCase().equals("Q");
     }
 
     public void runCommand(String option) {
-
+        if(commandMap.containsKey(option)) {
+            commandMap.get(option).execute();
+        }
+        else{
+            printStream.println("Invalid option!");
+        }
     }
 }
