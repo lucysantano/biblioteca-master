@@ -15,26 +15,28 @@ import static org.mockito.Mockito.when;
 /**
  * Created by lsantano on 9/25/15.
  */
-public class CheckOutCommandTest {
+public class CheckOutMoviesCommandTest {
 
     private Library library;
-    private CheckOutCommand checkOutCommand;
+    private CheckOutMoviesCommand checkOutMoviesCommand;
     private BufferedReader reader;
     private PrintStream printStream;
 
     @Before
-    public void setup() {
+    public void setup(){
         library = mock(Library.class);
         reader = mock(BufferedReader.class);
         printStream = mock(PrintStream.class);
-        checkOutCommand = new CheckOutCommand(library,reader,printStream);
+        checkOutMoviesCommand = new CheckOutMoviesCommand(library,reader,printStream);
     }
 
+
+
     @Test
-    public void shouldListBooksWhenCommandExecutes() throws IOException {
-        when(reader.readLine()).thenReturn("BookTitle");
-        checkOutCommand.execute();
-        verify(library).checkOut("BookTitle");
+    public void shouldListMoviesWhenCommandExecutes() throws IOException {
+        when(reader.readLine()).thenReturn("MovieTitle");
+        checkOutMoviesCommand.execute();
+        verify(library).checkOutMovie("MovieTitle");
     }
 
 }

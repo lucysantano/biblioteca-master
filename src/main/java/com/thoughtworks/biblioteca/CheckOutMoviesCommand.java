@@ -7,12 +7,12 @@ import java.io.PrintStream;
 /**
  * Created by lsantano on 9/25/15.
  */
-public class CheckOutCommand implements Command {
+public class CheckOutMoviesCommand implements Command {
     private Library library;
     private BufferedReader reader;
     private PrintStream printStream;
 
-    public CheckOutCommand(Library library,BufferedReader reader,PrintStream printStream) {
+    public CheckOutMoviesCommand(Library library, BufferedReader reader, PrintStream printStream) {
 
         this.library = library;
         this.reader = reader;
@@ -21,13 +21,14 @@ public class CheckOutCommand implements Command {
 
     @Override
     public void execute() {
-        printStream.println("Please enter a book title:");
-        String bookTitle = null;
+        printStream.println("Please enter a movie title:");
+        String movieTitle = null;
         try {
-            bookTitle = reader.readLine();
+            movieTitle = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        library.checkOut(bookTitle);
+        library.checkOutMovie(movieTitle);
+
     }
 }

@@ -20,15 +20,20 @@ public class LibraryTest {
     private PrintStream printStream;
     private ArrayList<Book> bookList;
     private Book book;
+    private ArrayList<Movie> movieList;
+    private Movie movie;
 
 
     @Before
     public void setup(){
         printStream = mock(PrintStream.class);
-        bookList = new ArrayList();
+        bookList = new ArrayList<>();
         book = mock(Book.class);
         bookList.add(book);
-        library = new Library(bookList, printStream);
+        movieList = new ArrayList<>();
+        movie = mock(Movie.class);
+        movieList.add(movie);
+        library = new Library(bookList, movieList, printStream);
     }
 
 
@@ -39,10 +44,10 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldChangeCheckoutStatusWhenCheckedOut(){
+    public void shouldChangeCheckoutStatusWhenBookIsCheckedOut(){
         when(book.hasTitle("Book1")).thenReturn(true);
 
-        library.checkOut("Book1");
+        library.checkOutBook("Book1");
 
         verify(book).changeCheckOutStatus();
     }
@@ -60,7 +65,7 @@ public class LibraryTest {
      public void shouldSeeSuccessMessageWhenUserChecksOutABook() {
         when(book.hasTitle("Book1")).thenReturn(true);
 
-        library.checkOut("Book1");
+        library.checkOutBook("Book1");
 
         verify(printStream).println("Thank you! Enjoy the book.");
     }
@@ -69,7 +74,7 @@ public class LibraryTest {
     public void shouldNotSeeFailureMessageWhenUserChecksOutABook() {
         when(book.hasTitle("Book1")).thenReturn(true);
 
-        library.checkOut("Book1");
+        library.checkOutBook("Book1");
 
         verify(printStream, never()).println("Book is not available.");
     }
@@ -78,7 +83,7 @@ public class LibraryTest {
     public void shouldSeeErrorMessageWhenUserTriesToCheckOutABookThatIsNotAvailable() {
         when(book.hasTitle("Book1")).thenReturn(false);
 
-        library.checkOut("Book1");
+        library.checkOutBook("Book1");
 
         verify(printStream).println("Book is not available.");
     }
@@ -98,7 +103,7 @@ public class LibraryTest {
         when(book.hasTitle("book1")).thenReturn(true, true);
         when(book.isCheckedOut()).thenReturn(false, true);
 
-        library.checkOut("book1");
+        library.checkOutBook("book1");
         library.returnBook("book1");
         library.listBooks();
 
@@ -130,6 +135,30 @@ public class LibraryTest {
         library.returnBook("Book1");
 
         verify(printStream).println("That is not a valid book to return.");
+    }
+
+    @Test
+    public void shouldDisplayAllMovieDetailsWhenListingMovies(){
+        library.listMovies();
+        verify(movie).printDetails();
+    }
+
+    @Test
+    public void shouldChangeCheckoutStatusWhenMovieIsCheckedOut(){
+        when(movie.hasTitle("MovieTitle")).thenReturn(true);
+
+        library.checkOutMovie("MovieTitle");
+
+        verify(movie).changeCheckOutStatus();
+    }
+
+    @Test
+    public void shouldNotPrintMovieDetailsWhenAMovieIsCheckedOut() {
+        when(movie.isCheckedOut()).thenReturn(true);
+
+        library.listMovies();
+
+        verify(movie, never()).printDetails();
     }
 
 }

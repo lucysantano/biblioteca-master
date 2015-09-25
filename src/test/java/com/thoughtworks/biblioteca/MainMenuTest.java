@@ -3,7 +3,6 @@ package com.thoughtworks.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.HashMap;
 
@@ -18,19 +17,25 @@ public class MainMenuTest {
     private MainMenu menu;
     private HashMap<String,Command> commandMap;
     private ListBookCommand listBookCommand;
-    private CheckOutCommand checkOutCommand;
+    private CheckOutBooksCommand checkOutBooksCommand;
     private ReturnBookCommand returnBookCommand;
+    private ListMoviesCommand listMoviesCommand;
+    private CheckOutMoviesCommand checkOutMoviesCommand;
 
     @Before
     public void setup() {
         printStream = mock(PrintStream.class);
         commandMap = new HashMap<>();
         listBookCommand = mock(ListBookCommand.class);
-        checkOutCommand = mock(CheckOutCommand.class);
+        checkOutBooksCommand = mock(CheckOutBooksCommand.class);
         returnBookCommand = mock(ReturnBookCommand.class);
+        listMoviesCommand = mock(ListMoviesCommand.class);
+        checkOutMoviesCommand = mock(CheckOutMoviesCommand.class);
         commandMap.put("1", listBookCommand);
-        commandMap.put("2", checkOutCommand);
+        commandMap.put("2", checkOutBooksCommand);
         commandMap.put("3", returnBookCommand);
+        commandMap.put("4", listMoviesCommand);
+        commandMap.put("5", checkOutMoviesCommand);
         menu = new MainMenu(printStream, commandMap);
 
     }
@@ -41,6 +46,8 @@ public class MainMenuTest {
                 "1 - List Books\n" +
                 "2 - Check Out Book\n" +
                 "3 - Return Book\n" +
+                "4 - List Movies\n" +
+                "5 - Check Out Movie\n" +
                 "Q - Quit");
     }
 
@@ -59,12 +66,24 @@ public class MainMenuTest {
     @Test
     public void shouldExecuteCheckOutBookWhenKeyIsTwo(){
         menu.runCommand("2");
-        verify(checkOutCommand).execute();
+        verify(checkOutBooksCommand).execute();
     }
 
     @Test
     public void shouldExecuteReturnBookWhenKeyIsThree(){
         menu.runCommand("3");
         verify(returnBookCommand).execute();
+    }
+
+    @Test
+    public void shouldExecuteListMoviesWhenKeyIsFour(){
+        menu.runCommand("4");
+        verify(listMoviesCommand).execute();
+    }
+
+    @Test
+    public void shouldExecuteCheckOutMovieWhenKeyIsFive(){
+        menu.runCommand("5");
+        verify(checkOutMoviesCommand).execute();
     }
 }
