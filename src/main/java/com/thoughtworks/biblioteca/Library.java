@@ -24,13 +24,31 @@ public class Library {
     }
 
     public void checkOut(String bookTitle) {
+        Book foundBook = findBookBy(bookTitle);
+        if (foundBook != null){
+            foundBook.changeCheckOutStatus();
+            printStream.println("Thank you! Enjoy the book");
+        } else {
+            printStream.println("Book is not available.");
+        }
+    }
+
+    private Book findBookBy(String bookTitle) {
+        Book foundBook = null;
         for (Book book : books) {
             if (book.hasTitle(bookTitle)) {
-                book.changeCheckOutStatus();
-                printStream.println("Thank you! Enjoy the book");
-                return;
+                foundBook = book;
+                break;
             }
         }
-        printStream.println("Book is not available.");
+        return foundBook;
+    }
+
+    public void returnBook(String bookTitle) {
+        Book foundBook = findBookBy(bookTitle);
+
+        if (foundBook != null){
+            foundBook.changeCheckOutStatus();
+        }
     }
 }

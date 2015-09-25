@@ -18,7 +18,7 @@ public class MainMenu {
     }
 
     public void displayOptions(){
-        printStream.println("Menu:\n1 - List Books\n2 - Check Out Book\nQ - Quit");
+        printStream.println("Menu:\n1 - List Books\n2 - Check Out Book\n3 - Return Book\nQ - Quit");
     }
 
     public void runCommand(String option) {

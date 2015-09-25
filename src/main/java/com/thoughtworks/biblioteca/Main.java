@@ -23,6 +23,7 @@ public class Main {
         HashMap<String, Command> commandMap = new HashMap<>();
         commandMap.put("1", new ListBookCommand(library));
         commandMap.put("2", new CheckOutCommand(library, new BufferedReader(new InputStreamReader(System.in)), System.out));
+        commandMap.put("3", new ReturnBookCommand(library, new BufferedReader(new InputStreamReader(System.in)), System.out));
 
         MainMenu mainMenu = new MainMenu(System.out, commandMap);
 

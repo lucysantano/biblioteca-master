@@ -19,6 +19,7 @@ public class MainMenuTest {
     private HashMap<String,Command> commandMap;
     private ListBookCommand listBookCommand;
     private CheckOutCommand checkOutCommand;
+    private ReturnBookCommand returnBookCommand;
 
     @Before
     public void setup() {
@@ -26,6 +27,7 @@ public class MainMenuTest {
         commandMap = new HashMap<>();
         listBookCommand = mock(ListBookCommand.class);
         checkOutCommand = mock(CheckOutCommand.class);
+        returnBookCommand = mock(ReturnBookCommand.class);
         commandMap.put("1", listBookCommand);
         commandMap.put("2", checkOutCommand);
         menu = new MainMenu(printStream, commandMap);
@@ -41,7 +43,7 @@ public class MainMenuTest {
     }
 
     @Test
-    public void shouldCallListBooksExecuteWhenKeyIsOne(){
+    public void shouldExecuteCallListBooksWhenKeyIsOne(){
         menu.runCommand("1");
         verify(listBookCommand).execute();
     }
@@ -53,8 +55,14 @@ public class MainMenuTest {
     }
 
     @Test
-    public void shouldCheckOutBookExecuteWhenKeyIsTwo(){
+    public void shouldExecuteCheckOutBookWhenKeyIsTwo(){
         menu.runCommand("2");
         verify(checkOutCommand).execute();
+    }
+
+    @Test
+    public void shouldExecuteReturnBookWhenKeyIsThree(){
+        menu.runCommand("3");
+        verify(returnBookCommand).execute();
     }
 }

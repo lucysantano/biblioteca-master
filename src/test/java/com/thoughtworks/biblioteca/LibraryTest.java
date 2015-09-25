@@ -39,7 +39,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldTrueWhenCheckedOut(){
+    public void shouldChangeCheckoutStatusWhenCheckedOut(){
         when(book.hasTitle("Book1")).thenReturn(true);
 
         library.checkOut("Book1");
@@ -81,5 +81,27 @@ public class LibraryTest {
         library.checkOut("Book1");
 
         verify(printStream).println("Book is not available.");
+    }
+
+    @Test
+    public void shouldChangeCheckoutStatusWhenReturningBook(){
+        when(book.hasTitle("Book1")).thenReturn(true);
+
+        library.returnBook("Book1");
+
+        verify(book).changeCheckOutStatus();
+
+    }
+
+    @Test
+    public void shouldPrintBookDetailsWhenABookIsReturned() {
+        when(book.hasTitle("book1")).thenReturn(true, true);
+        when(book.isCheckedOut()).thenReturn(false, true);
+
+        library.checkOut("book1");
+        library.returnBook("book1");
+        library.listBooks();
+
+        verify(book).printDetails();
     }
 }
