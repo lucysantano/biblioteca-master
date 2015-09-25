@@ -18,13 +18,16 @@ public class MainMenuTest {
     private MainMenu menu;
     private HashMap<String,Command> commandMap;
     private ListBookCommand listBookCommand;
+    private CheckOutCommand checkOutCommand;
 
     @Before
     public void setup() {
         printStream = mock(PrintStream.class);
         commandMap = new HashMap<>();
         listBookCommand = mock(ListBookCommand.class);
+        checkOutCommand = mock(CheckOutCommand.class);
         commandMap.put("1", listBookCommand);
+        commandMap.put("2", checkOutCommand);
         menu = new MainMenu(printStream, commandMap);
 
     }
@@ -33,6 +36,7 @@ public class MainMenuTest {
         menu.displayOptions();
         verify(printStream).println("Menu:\n" +
                 "1 - List Books\n" +
+                "2 - Check Out Book\n" +
                 "Q - Quit");
     }
 
@@ -46,5 +50,11 @@ public class MainMenuTest {
     public void shouldDisplayInvalidOptionWhenOptionChoosenIsNotFound(){
         menu.runCommand("adf");
         verify(printStream).println("Invalid option!");
+    }
+
+    @Test
+    public void shouldCheckOutBookExecuteWhenKeyIsTwo(){
+        menu.runCommand("2");
+        verify(checkOutCommand).execute();
     }
 }

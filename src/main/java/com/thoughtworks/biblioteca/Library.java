@@ -17,7 +17,9 @@ public class Library {
 
     public void listBooks() {
         for (Book book : books) {
-            book.printDetails();
+            if (!book.isCheckedOut()) {
+                book.printDetails();
+            }
         }
     }
 
@@ -25,8 +27,10 @@ public class Library {
         for (Book book : books) {
             if (book.hasTitle(bookTitle)) {
                 book.changeCheckOutStatus();
-                break;
+                printStream.println("Thank you! Enjoy the book");
+                return;
             }
         }
+        printStream.println("Book is not available.");
     }
 }

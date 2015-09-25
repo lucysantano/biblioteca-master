@@ -6,6 +6,7 @@ import java.io.PrintStream;
  * Created by eleones on 9/22/15.
  */
 public class Book {
+    private boolean checkedOut;
     private String title;
     private String author;
     private String year;
@@ -16,6 +17,7 @@ public class Book {
         this.author = author;
         this.year = year;
         this.printStream =printStream;
+        this.checkedOut = false;
     }
 
     public void printDetails() {
@@ -24,10 +26,14 @@ public class Book {
     }
 
     public void changeCheckOutStatus() {
-
+        this.checkedOut = !this.checkedOut;
     }
 
     public boolean hasTitle(String bookTitle) {
         return bookTitle.equals(title);
+    }
+
+    public boolean isCheckedOut() {
+        return this.checkedOut;
     }
 }

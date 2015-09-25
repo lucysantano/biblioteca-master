@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -39,6 +40,12 @@ public class BookTest {
     @Test
     public void shouldReturnFalseIfBookDoesNotHaveTitle() {
         assertFalse(book.hasTitle("The Hungry"));
+    }
+
+    @Test
+    public void shouldSetStatusToTrueWhenCheckedOut(){
+        book.changeCheckOutStatus();
+        assertTrue(book.isCheckedOut());
     }
 
 
